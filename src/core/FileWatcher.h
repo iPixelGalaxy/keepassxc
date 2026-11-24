@@ -45,7 +45,7 @@ private slots:
     void checkFileChanged();
 
 private:
-    QByteArray calculateChecksum();
+    static QByteArray calculateChecksum(const QString& path, int sizeBytes);
     bool shouldIgnoreChanges();
 
     QString m_filePath;
@@ -55,7 +55,8 @@ private:
     QTimer m_fileIgnoreDelayTimer;
     QTimer m_fileChecksumTimer;
     int m_fileChecksumSizeBytes = -1;
-    bool m_ignoreFileChange = false;
+    quint64 m_watchGeneration = 0;
+    bool m_checksumPending = false;
     bool m_paused = false;
 };
 
